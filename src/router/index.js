@@ -4,18 +4,39 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('../views/HomeView.vue'),
+    component: () => import('../views/FrontLayout.vue'),
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/AboutView.vue'),
+    path: '/login',
+    component: () => import('../views/Front/LoginView.vue'),
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/DashboardLayout.vue'),
+    children: [
+      {
+        path: 'products',
+        name: 'AdminProducts',
+        component: () => import('../views/Dashboard/AdminProducts.vue'),
+      },
+      {
+        path: 'orders',
+        name: 'AdminOrders',
+        component: () => import('../views/Dashboard/AdminOrders.vue'),
+      },
+      {
+        path: 'Coupons',
+        name: 'AdminCoupons',
+        component: () => import('../views/Dashboard/AdminCoupons.vue'),
+      },
+    ],
   },
 ];
 
 const router = createRouter({
   history: createWebHashHistory(),
-  linkActiveClass: 'active',
+  linkExactActiveClass: 'active',
   routes,
 });
 

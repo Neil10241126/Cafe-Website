@@ -1,0 +1,39 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+// 盒模型
+*,*::before,*::after{
+  box-sizing: border-box;
+}
+
+/* 圖片樣式調整 */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+	// vertical-align: middle;
+}
+
+// for Bootstrap Normalize Reset
+ul, ol {
+  list-style: none;
+}
+
+h1,h2,h3,h4,h5,h6,p,ul,li {
+  padding: 0;
+  margin: 0;
+  line-height: 1.5;
+}
+
+// 其他全域設定 body [字體、行高、基礎字形大小]
+
+body {
+  font-family: "Poppins", "Noto Sans TC", sans-serif,;
+  line-height: 1.5;
+}
+
+a {
+  display: block;
+  text-decoration: none;
+}

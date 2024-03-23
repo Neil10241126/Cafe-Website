@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import eslintPlugin from 'vite-plugin-eslint';
+import VueDevTools from 'vite-plugin-vue-devtools';
 import loadEnv from './loadEnv';
 
 // eslint-disable-next-line no-control-regex
@@ -21,6 +22,7 @@ export default defineConfig(({ mode }) => {
       eslintPlugin({
         include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue'],
       }),
+      VueDevTools(),
     ],
     resolve: {
       alias: {
