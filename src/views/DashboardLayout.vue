@@ -75,26 +75,27 @@
       <div class="menu-bottom">
         <ul class="nav nav-pills flex-column">
           <li class="nav-item mb-2">
-            <RouterLink to="/" class="nav-link px-0 link-light d-flex align-items-center">
-              <span class="icon text-center">
-                <i class="bi bi-box-arrow-in-left icon fs-5"></i>
-              </span>
-              <transition name="v-fade">
-                <div v-if="show" class="text w-100 d-flex justify-content-between">
-                  <span>登出</span>
-                  <i class="bi bi-chevron-right arrow-right text-dark me-4"></i>
-                </div>
-              </transition>
-            </RouterLink>
+              <a href="#" class="nav-link px-0 link-light d-flex align-items-center"
+                @click.prevent="logout()">
+                <span class="icon text-center">
+                  <i class="bi bi-box-arrow-in-left icon fs-5"></i>
+                </span>
+                <transition name="v-fade">
+                  <div v-if="show" class="text w-100 d-flex justify-content-between">
+                    <span>登出</span>
+                    <i class="bi bi-chevron-right arrow-right text-dark me-4"></i>
+                  </div>
+                </transition>
+              </a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <main class="main bg-db-dark vh-100" ref="main">
-    <div class="container-fluid px-4">
-      <div class="main-header py-2 d-flex align-items-center justify-content-between">
+  <main class="main bg-dark vh-100" ref="main">
+    <div class="container-fluid">
+      <div class="main-header bg-db-dark py-2 d-flex align-items-center justify-content-between">
         <div class="main-text d-flex align-items-center">
           <span class="fs-5 text-db-gray">後台管理</span>
           <i class="bi bi-chevron-double-right text-db-gray mx-2 fs-7"></i>
@@ -103,13 +104,7 @@
           <span v-else-if="route.name === 'AdminOrders'" class="fs-5 text-light">訂單列表</span>
           <span v-else-if="route.name === 'AdminCoupons'" class="fs-5 text-light">優惠券列表</span>
         </div>
-        <div class="main-user d-flex align-items-center">
-          <div class="btn btn-db-primary px-4 me-4 d-flex align-items-center"
-            :class="{'d-none': route.name === 'Admin' || route.name === 'AdminOrders'}">
-            <i class="bi bi-cart-plus me-2"></i>
-            <span v-if="route.name === 'AdminProducts'">新增產品</span>
-            <span v-else-if="route.name === 'AdminCoupons'">新增優惠券</span>
-          </div>
+        <div class="main-user">
           <div class="dropdown">
             <button class="btn btn-db-dark dropdown-toggle d-flex align-items-center" type="button"
              id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -125,7 +120,7 @@
       </div>
     </div>
 
-    <div class="container-fluid px-5 pt-5 bg-dark">
+    <div class="container-fluid px-5 py-5 bg-dark">
       <div class="main-content">
         <RouterView></RouterView>
       </div>
@@ -136,9 +131,12 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+import axios from 'axios';
 
+const { VITE_APP_API_URL } = import.meta.env;
 const route = useRoute();
+const router = useRouter();
 
 // toggle Button use
 const sidebar = ref(null); // sidebar DOM
@@ -152,10 +150,18 @@ function toggleSidebar() {
   show.value = !show.value;
 }
 
+function logout() { // 登出
+  axios.post(`${VITE_APP_API_URL}/v2/logout`)
+    .then(() => {
+      alert('登出成功');
+      router.push('/');
+    }).catch((err) => alert(err.response.data.message));
+}
+
 </script>
 
 <style scoped lang="scss">
-// Variable
+// === Color Variable ===
 $db-primary: #FFCD39;
 $dark: #212529;
 
@@ -192,6 +198,7 @@ $dark: #212529;
   height: 100%;
   padding: 12px 14px;
   transition: all 0.5s;
+  z-index: 2000;
 
   .image, .icon {
     min-width: 60px;
@@ -235,15 +242,28 @@ $dark: #212529;
   margin-left: 250px;
   transition: all 0.5s;
 }
+.main-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100% - 250px);
+  z-index: 1000;
+  padding: 0 32px;
+  transition: all 0.5s;
+}
 
 .main.close {
   margin-left: 88px;
+  .main-header {
+    width: calc(100% - 88px);
+  }
 }
 .main .main-content {
-  height: calc(100vh - 95px);
+  margin-top: 70px;
+  // height: calc(100vh - 102px);
 }
 
-// === Cover Nav CSS Style ===
+// === Cover BS-Nav CSS Style ===
 .nav-pills .nav-link.active {
   color: $dark !important;
   background: $db-primary !important;

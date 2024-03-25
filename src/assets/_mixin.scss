@@ -1,0 +1,37 @@
+// 圖片取代文字
+@mixin hide-text {
+  text-indent: 101%;
+  white-space: nowrap;
+  overflow: hidden;
+};
+// 垂直(多行)文字截斷 ...
+// 連結 : https://stackoverflow.com/questions/33058004/applying-an-ellipsis-to-multiline-text/41137262#41137262
+@mixin text-vertical-truncate {
+  display: -webkit-box;
+  max-width: 200px;  // 寬度 : 自行設定
+  -webkit-line-clamp: 4;  // 列數 : 自行設定
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+};
+// a:link  hover自訂效果
+@mixin hover-transition {
+  transition: all 0.3s ease;
+  &:hover {
+    @content;
+  }
+};
+
+// 漸層 : https://codepen.io/cathydutton/pen/dPPpWj
+@mixin linear-gradient($direction, $list) { 
+  background: -webkit-linear-gradient($direction, $list);
+  background: -moz-linear-gradient($direction, $list);
+  background: -o-linear-gradient($direction, $list);
+  background: linear-gradient($direction, $list);  
+}
+
+// RWD ( Desktop First >> Pad >> Mobile >> Moblie-md )
+@mixin pad {
+  @include media-breakpoint-down(lg) {
+    @content;
+  }
+};

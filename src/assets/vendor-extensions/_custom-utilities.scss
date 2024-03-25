@@ -1,0 +1,14 @@
+// 自訂 BS 通用類別 :
+// 規則 : 都使用【bs-】前綴開頭
+// 參考文件 : https://getbootstrap.com/docs/5.3/utilities/api/#rename-utilities
+
+$utilities: map-merge(
+  $utilities,
+  (
+    "pointer-events": ( // 取消事件
+      property: pointer-events,
+      class: bs-pointer,
+      values: none,
+    )
+  )
+);

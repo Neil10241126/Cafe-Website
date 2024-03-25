@@ -1,0 +1,35 @@
+// Bootstrap SCSS 配置 :
+// 參考文件 : https://getbootstrap.com/docs/5.3/customize/sass/
+
+// 1. 匯入函式 (才能操作顏色、SVG、計算等等)★☆
+@import "bootstrap/scss/functions";
+
+// 2. 需要覆蓋的預設變數檔案
+@import "../vendor-extensions/variables"; // 設定【變數】。
+
+// 3. 原始變數樣式表
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+
+// 4. Include any default map overrides here
+
+// 5. Include remainder of required parts
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/root";
+
+// 6. 自行選擇的部分功能 (未使用的可以不啟用)
+@import "../vendor-extensions//utilities"; // 設定【通用類別】。
+@import "../vendor-extensions/custom-utilities"; // 新增【通用類別】。
+// @import "bootstrap/scss/reboot";
+// @import "bootstrap/scss/type";
+// @import "bootstrap/scss/images";
+// @import "bootstrap/scss/containers";
+// @import "bootstrap/scss/grid";
+// @import "bootstrap/scss/helpers";
+
+// 7. 生成 _utilities.scss API 應用程式
+@import "bootstrap/scss/utilities/api";
+
+// 8. Add additional custom code here
+@import "bootstrap/scss/bootstrap";
